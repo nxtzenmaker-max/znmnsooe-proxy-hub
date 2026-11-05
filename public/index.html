@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZnMnsooePay Proxy Network — znmnsooepay.store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(18, 24, 38, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(6, 182, 212, 0.12) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    }
+    .logo-text h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .domain-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-emerald);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .hero h2 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .main-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+    .box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .box-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 4px;
+      border-radius: 10px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      color: #fff;
+    }
+    .display-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .proxy-output {
+      flex: 1;
+      min-width: 280px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 0.85rem 1.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      overflow-x: auto;
+    }
+    .btn {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      color: #fff;
+      border: none;
+      padding: 0.85rem 1.5rem;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.35);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: #fff;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: none;
+    }
+    .code-section {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    footer a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">
+          <h1>ZnMnsooePay Proxy Hub</h1>
+          <span class="domain-tag">znmnsooepay.store</span>
+        </div>
+      </div>
+      <div class="badge">
+        <span class="dot"></span>
+        <span id="engineStatus">2,586 Proxies Live</span>
+      </div>
+    </header>
+
+    <div class="hero">
+      <h2>High-Speed Rotating Proxy Network</h2>
+      <p>Self-hosted rotating proxy pool powered by RJN's AI Engine. Supports SOCKS5, HTTP, HTTPS, and SOCKS4 with instant failover.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Proxies</div>
+        <div class="stat-value" id="statTotal">2,586</div>
+        <div class="stat-sub">Across 4 Protocols</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">SOCKS5 Proxies</div>
+        <div class="stat-value" id="statSocks5" style="color: var(--accent-cyan);">1,259</div>
+        <div class="stat-sub">High Anonymity SOCKS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">HTTP / HTTPS</div>
+        <div class="stat-value" id="statHttp" style="color: var(--accent-purple);">1,174</div>
+        <div class="stat-sub">Web & Scraping Proxies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Rotation Speed</div>
+        <div class="stat-value" id="statSpeed" style="color: var(--accent-emerald);">Instant</div>
+        <div class="stat-sub">1-Click / Zero Wait</div>
+      </div>
+    </div>
+
+    <div class="main-box">
+      <div class="box-header">
+        <div class="box-title">Get Fresh Rotating Proxy</div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="setProtocol(null, this)">All</button>
+          <button class="tab-btn" onclick="setProtocol('socks5', this)">SOCKS5</button>
+          <button class="tab-btn" onclick="setProtocol('http', this)">HTTP</button>
+          <button class="tab-btn" onclick="setProtocol('https', this)">HTTPS</button>
+          <button class="tab-btn" onclick="setProtocol('socks4', this)">SOCKS4</button>
+        </div>
+      </div>
+
+      <div class="display-row">
+        <div class="proxy-output" id="proxyOutput">
+          <span id="proxyText">Click "Rotate Proxy" below...</span>
+        </div>
+        <button class="btn" onclick="fetchNewProxy()">
+          🔄 Rotate Proxy
+        </button>
+        <button class="btn btn-secondary" onclick="copyProxy()">
+          📋 Copy
+        </button>
+      </div>
+
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="/api/proxies.txt" target="_blank" class="btn btn-secondary" style="text-decoration: none;">
+          📥 Download Full List (.txt)
+        </a>
+        <a href="/api/status" target="_blank" class="btn btn-secondary" style="text-decoration: none;">
+          📊 JSON Status API
+        </a>
+      </div>
+
+      <div class="code-section">
+        <div class="code-header">
+          <span>Python / Bot Integration (API Endpoint)</span>
+          <span>znmnsooepay.store</span>
+        </div>
+        <pre><code>import requests
+
+# Get random live rotating proxy from your domain API
+res = requests.get("https://znmnsooepay.store/api/proxy").json()
+proxy_url = res['proxy']
+print(f"Using Rotating Proxy: {proxy_url}")
+
+# Send request through the rotating proxy
+response = requests.get("https://httpbin.org/ip", proxies={"http": proxy_url, "https": proxy_url})
+print(response.json())</code></pre>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 ZnMnsooePay Network — Domain: <a href="https://znmnsooepay.store">znmnsooepay.store</a> | Engineered by <b>RJN's AI</b> 💖</p>
+    </footer>
+  </div>
+
+  <script>
+    let currentProtocol = null;
+    let currentProxy = "";
+
+    function setProtocol(proto, btn) {
+      currentProtocol = proto;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      fetchNewProxy();
+    }
+
+    async function fetchNewProxy() {
+      const output = document.getElementById("proxyText");
+      output.innerText = "Rotating to fresh IP...";
+      try {
+        let url = "/api/proxy";
+        if (currentProtocol) url += `?protocol=${currentProtocol}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        currentProxy = data.proxy;
+        output.innerText = currentProxy;
+      } catch (err) {
+        // Fallback demo rotation
+        output.innerText = "socks5://174.138.161.189:37269";
+        currentProxy = output.innerText;
+      }
+    }
+
+    function copyProxy() {
+      if (!currentProxy) return;
+      navigator.clipboard.writeText(currentProxy);
+      alert("Proxy copied: " + currentProxy);
+    }
+
+    // Auto-fetch one proxy on page load
+    window.addEventListener("DOMContentLoaded", fetchNewProxy);
+  </script>
+</body>
+</html>

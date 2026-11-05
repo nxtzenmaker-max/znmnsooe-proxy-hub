@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/proxies.txt", "destination": "/api/proxies" },
+    { "source": "/api/proxy", "destination": "/api/proxy" },
+    { "source": "/api/status", "destination": "/api/status" },
+    { "source": "/", "destination": "/public/index.html" },
+    { "source": "/(.*)", "destination": "/public/$1" }
+  ]
+}
